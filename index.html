@@ -25,10 +25,6 @@
         text-align: center;
     }
 
-    #example {
-        width: 500px;
-    }
-
     .center-text {
         text-align: center;
     }
@@ -58,15 +54,17 @@
     }
 
     .big-sep {
-        height: 6em;
+        height: 4em;
     }
 
     input {
         width: 300px;
     }
 
-    img {
+    .shadow-img {
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        width: 100%;
+        max-width: 400px;
     }
 
     #result {
@@ -127,7 +125,7 @@
             效果：当别人@你时，会在@的文字后面加上一另段文字。下图结尾的“喵~”不是发送者输入的。
         </div>
 
-        <img src="img/example.jpg" alt="example of thie" id="example">
+        <img src="img/example.jpg" class="shadow-img" alt="example of thie" id="example">
 
         <div class="big-text text">
             原理：用unicode控制字符
@@ -138,7 +136,7 @@
             ，别人看到的昵称会是“阿斯蒂芬喵~”，若别人输入“@阿斯蒂芬喵~ 你好”则会变成“@阿斯蒂芬 你好喵~”。
         </div>
 
-        <img src="img/word.jpg" alt="use word to check the result">
+        <img src="img/word.jpg" class="shadow-img" alt="use word to check the result">
 
         <div class="big-text text">
             验证昵称格式：把结果复制到 Word 中可以看到控制字符，但 Word 内显示的后半部分是前后反转的，粘贴到 QQ 昵称后会自动变回来。最终昵称在 Word 内必须要显示出两个控制字符（分别 RLI 和
