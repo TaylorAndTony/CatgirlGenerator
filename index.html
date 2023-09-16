@@ -19,6 +19,8 @@
             效果：当别人@你时，会在@的文字后面加上一另段文字。下图结尾的「喵~」不是发送者输入的。
         </div>
 
+        <img src="img/step1.jpg" class="shadow-img" alt="example of thie" id="step1">
+        <img src="img/step2.jpg" class="shadow-img" alt="example of thie" id="step2">
         <img src="img/example.jpg" class="shadow-img" alt="example of thie" id="example">
 
         <div class="big-text text">
@@ -26,15 +28,14 @@
             <p class="code">RLI</p>
             和
             <p class="code">LRI</p>
-            包裹倒序的后缀部分，在别人@后，@后面的文本会跑到被包裹部分的前面去。例如：昵称设置为「阿斯蒂芬<div class="code">RLI</div>~喵<div class="code">LRI</div>
-            」，别人看到的昵称会是「阿斯蒂芬喵~」，若别人输入「@阿斯蒂芬喵~ 你好」则会变成「@阿斯蒂芬 你好喵~」。
+            包裹倒序的后缀部分，在别人@后，@后面的文本会跑到被包裹部分的前面去。例如：昵称设置为「爱蜜莉雅<div class="code">RLI</div>~碳<div class="code">LRI</div>
+            」，别人看到的昵称会是「爱蜜莉雅碳~」，若别人输入「@爱蜜莉雅碳~ 你好」则会变成「@爱蜜莉雅 你好碳~」。
         </div>
 
         <img src="img/word.jpg" class="shadow-img" alt="use word to check the result">
 
         <div class="big-text text">
-            验证昵称格式：把结果复制到 Word 中可以看到控制字符，但 Word 内显示的后半部分是前后反转的，粘贴到 QQ 昵称后会自动变回来。最终昵称在 Word 内必须要显示出两个控制字符（分别 RLI 和
-            LRI）才能正确触发此特性。
+            把结果复制到 Word 中可以看到控制字符，但 Word 内显示的后半部分是前后反转的，这实际上是文本实际的存储顺序。实际上，<p class="code">RLI</p> 的作用是把它后面的字符反过来显示（请注意，不是反过来存储）。不过粘贴到 QQ 昵称后会自动变回来。最终昵称在 Word 内必须要显示出两个控制字符（分别 RLI 和 LRI）才能正确触发此特性。
         </div>
 
         <div class="big-text text">
@@ -44,17 +45,17 @@
         <h2>基本生成</h2>
 
         <div class="big-text text">
-            这是个一键昵称生成器。
+            这是个一键昵称生成器。请注意复制结果需要<strong>点击复制按钮</strong>，否则可能会漏选最后一个不可见字符。
         </div>
 
         <div class="input-group mb-3">
             <span class="input-group-text">前半部分</span>
-            <input type="text" id="prefix" value="阿斯蒂芬" class="form-control">
+            <input type="text" id="prefix" value="爱蜜莉雅" class="form-control">
         </div>
 
         <div class="input-group mb-3">
             <span class="input-group-text">后半部分</span>
-            <input type="text" id="suffix" value="喵~" class="form-control">
+            <input type="text" id="suffix" value="碳~" class="form-control">
         </div>
 
         <div class="btn-group" role="group">
