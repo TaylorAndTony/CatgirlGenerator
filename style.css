@@ -1,0 +1,82 @@
+body {
+    background-color: white;
+    font-size: 16px;
+}
+
+h1 {
+    padding: 20px 0;
+}
+
+h2 {
+    text-align: left;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+#main {
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.text {
+    display: inline-block;
+    text-align: justify;
+    line-height: 2em;
+}
+
+.big-text {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.code {
+    display: inline;
+    border: 1px solid black;
+    padding: 0 4px;
+    font-family: Consolas, Fira Code, monospace;
+    /* box-shadow: 2px 2px 4px #aaa; */
+}
+
+.code-font {
+    font-family: Consolas, Fira Code, monospace;
+}
+
+.sep {
+    height: 1em;
+}
+
+.big-sep {
+    height: 4em;
+}
+
+input {
+    width: 300px;
+}
+
+.shadow-img {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 400px;
+}
+
+.red-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: crimson;
+}
+
+.real-code {
+    text-align: left;
+    font-size: 14px;
+    font-family: Consolas, Fira Code, monospace;
+    background-color: #eee;
+    padding: 10px;
+    border-radius: 5px;
+}

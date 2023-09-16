@@ -5,121 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link href="logoStyle.css" rel="stylesheet">
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>扩展昵称生成器</title>
 </head>
-<style>
-    body {
-        background-color: white;
-        font-size: 16px;
-    }
-
-    h1 {
-        padding: 20px 0;
-    }
-
-    #main {
-        width: 80%;
-        max-width: 800px;
-        margin: 0 auto;
-        text-align: center;
-    }
-
-    .center-text {
-        text-align: center;
-    }
-
-    .text {
-        display: inline-block;
-        text-align: justify;
-        line-height: 2em;
-    }
-
-    .big-text {
-        margin-top: 20px;
-        margin-bottom: 20px;
-        width: 100%;
-    }
-
-    .code {
-        display: inline;
-        border: 1px solid black;
-        padding: 0 4px;
-        font-family: Consolas, Fira Code, monospace;
-        /* box-shadow: 2px 2px 4px #aaa; */
-    }
-
-    .code-font {
-        font-family: Consolas, Fira Code, monospace;
-    }
-
-    .sep {
-        height: 1em;
-    }
-
-    .big-sep {
-        height: 4em;
-    }
-
-    input {
-        width: 300px;
-    }
-
-    .shadow-img {
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        width: 100%;
-        max-width: 400px;
-    }
-
-    .red-text {
-        font-size: 20px;
-        font-weight: bold;
-        color: crimson;
-    }
-
-    .real-code {
-        text-align: left;
-        font-size: 14px;
-        font-family: Consolas, Fira Code, monospace;
-        background-color: #eee;
-        padding: 10px;
-        border-radius: 5px;
-    }
-</style>
-
-<style>
-    .github-corner:hover .octo-arm {
-        animation: octocat-wave 560ms ease-in-out
-    }
-
-    @keyframes octocat-wave {
-
-        0%,
-        100% {
-            transform: rotate(0)
-        }
-
-        20%,
-        60% {
-            transform: rotate(-25deg)
-        }
-
-        40%,
-        80% {
-            transform: rotate(10deg)
-        }
-    }
-
-    @media (max-width:500px) {
-        .github-corner:hover .octo-arm {
-            animation: none
-        }
-
-        .github-corner .octo-arm {
-            animation: octocat-wave 560ms ease-in-out
-        }
-    }
-</style>
 
 <body>
     <div id="main">
@@ -151,20 +41,24 @@
             可以在网页生成后立即粘贴到 QQ 昵称中，也可以先复制到 Word 中，再从 Word 中复制到 QQ 昵称中。若使用后者，请注意完整选择这一行，不要漏选最后一个不可见字符。
         </div>
 
+        <h2>基本生成</h2>
+
+        <div class="big-text text">
+            这是个一键昵称生成器。
+        </div>
+
         <div class="input-group mb-3">
             <span class="input-group-text">前半部分</span>
             <input type="text" id="prefix" value="阿斯蒂芬" class="form-control">
         </div>
 
         <div class="input-group mb-3">
-            <span class="input-group-text">后半部分（正序输入）</span>
+            <span class="input-group-text">后半部分</span>
             <input type="text" id="suffix" value="喵~" class="form-control">
         </div>
 
         <div class="btn-group" role="group">
             <button type="button" id="generate" class="btn btn-primary">生成</button>
-            <button type="button" id="copy" class="btn btn-primary">复制1</button>
-            <button type="button" id="copy2" class="btn btn-primary">复制2</button>
         </div>
 
         <div class="sep"></div>
@@ -172,6 +66,7 @@
         <div class="input-group mb-3">
             <span class="input-group-text">结果1</span>
             <input type="text" id="result" value="..." class="form-control red-text" readonly>
+            <button class="input-group-text btn btn-light" id="copy">复制</button>
         </div>
 
         <div class="input-group mb-3">
@@ -179,12 +74,17 @@
             <input type="text" id="validate" value="..." class="form-control code-font" readonly>
         </div>
 
+        <h2>修复生成</h2>
+
         <div class="big-text text">此控制字符对汉字不稳定，混合汉字和字符可能导致意外的顺序。若上结果有误，下面是没有反转的字符。</div>
 
         <div class="input-group mb-3">
             <span class="input-group-text">结果2</span>
             <input type="text" id="result2" value="..." class="form-control red-text" readonly>
+            <button class="input-group-text btn btn-light" id="copy2">复制</button>
         </div>
+
+        <h2>文本反转</h2>
 
         <div class="big-text text">这是一个字符串反转实用工具</div>
 
@@ -196,6 +96,24 @@
         <div class="input-group mb-3">
             <span class="input-group-text">输出</span>
             <input type="text" id="r-out" value="..." class="form-control">
+            <button class="input-group-text btn btn-light" id="r-copy">复制</button>
+        </div>
+
+        <h2>自定义模板</h2>
+
+        <div class="big-text text">如果你对以上工具的自由度不满意，下面是一个高自由度的文本生成器。使用<p class="code">#r</p>表示 RLI 字符，使用<p class="code">#l</p>表示 LRI 字符。
+        </div>
+
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">输入模板字符串</span>
+            <input type="text" id="t-in" value="..." class="form-control">
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">输出</span>
+            <input type="text" id="t-out" value="..." class="form-control red-text">
+            <button class="input-group-text btn btn-light" id="t-copy">复制</button>
         </div>
 
 
@@ -239,83 +157,8 @@ if __name__ == '__main__':
                     fill="currentColor" class="octo-body"></path>
             </svg></a>
     </div>
-    <script>
-        var finalResultCache = "";
-        var finalResultCache2 = "";
 
-        function reverseString(s) {
-            return s.split("").reverse().join("");
-        }
-
-        function wrapWithUnideoce(s, reverse = true) {
-            return reverse ? "\u2067" + reverseString(s) + "\u2066"
-                : "\u2067" + s + "\u2066";
-        }
-
-        function copy(str) {
-            var save = function (e) {
-                e.clipboardData.setData('text/plain', str); // 剪贴板内容设置
-                e.preventDefault(); // 阻止默认行为
-            }
-            document.addEventListener('copy', save);
-            document.execCommand("copy"); // 执行 copy 操作
-            document.removeEventListener('copy', save);
-        }
-
-        function getValidateStr(s) {
-            // basically convert s into hex string under utf-8
-            let result = "";
-            for (let i = 0; i < s.length; i++) {
-                let hex = s.charCodeAt(i).toString(16);
-                // zero padding
-                while (hex.length < 4) {
-                    hex = '0' + hex;
-                }
-                result += 'U+' + hex + ' ';
-            }
-            return result;
-        }
-
-        function generateThenUpdate() {
-            let prefix = $("#prefix").val();
-            let suffix = $("#suffix").val();
-            finalResultCache = prefix + wrapWithUnideoce(suffix);
-            finalResultCache2 = prefix + wrapWithUnideoce(suffix, false);
-            console.log(finalResultCache);
-            console.log(finalResultCache2);
-            $("#result").val(finalResultCache);
-            $("#result2").val(finalResultCache2);
-            $("#validate").val(getValidateStr(finalResultCache));
-        }
-
-        function reverseThenUpdate() {
-            let input = $("#r-in").val();
-            let output = reverseString(input);
-            $("#r-out").val(output);
-        }
-
-        $(document).ready(function () {
-            $('#prefix').bind('input propertychange', function () {
-                generateThenUpdate();
-            });
-            $('#suffix').bind('input propertychange', function () {
-                generateThenUpdate();
-            });
-            $('#r-in').bind('input propertychange', function () {
-                reverseThenUpdate();
-            });
-            $("#generate").click(function () {
-                generateThenUpdate();
-                copy(finalResultCache);
-            });
-            $("#copy").click(function () {
-                copy(finalResultCache);
-            });
-            $("#copy2").click(function () {
-                copy(finalResultCache2);
-            });
-        });
-    </script>
+    <script src="main.js"></script>
 </body>
 
 </html>
