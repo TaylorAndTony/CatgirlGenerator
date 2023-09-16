@@ -49,6 +49,10 @@
         /* box-shadow: 2px 2px 4px #aaa; */
     }
 
+    .code-font {
+        font-family: Consolas, Fira Code, monospace;
+    }
+
     .sep {
         height: 1em;
     }
@@ -67,13 +71,13 @@
         max-width: 400px;
     }
 
-    #result {
+    .red-text {
         font-size: 20px;
         font-weight: bold;
         color: crimson;
     }
 
-    .real-code{
+    .real-code {
         text-align: left;
         font-size: 14px;
         font-family: Consolas, Fira Code, monospace;
@@ -122,7 +126,7 @@
         <h1 id="title" class="center-text">扩展昵称生成器</h1>
 
         <div class="big-text text">
-            效果：当别人@你时，会在@的文字后面加上一另段文字。下图结尾的“喵~”不是发送者输入的。
+            效果：当别人@你时，会在@的文字后面加上一另段文字。下图结尾的「喵~」不是发送者输入的。
         </div>
 
         <img src="img/example.jpg" class="shadow-img" alt="example of thie" id="example">
@@ -132,8 +136,8 @@
             <p class="code">RLI</p>
             和
             <p class="code">LRI</p>
-            包裹倒序的后缀部分，在别人@后，@后面的文本会跑到被包裹部分的前面去。例如：昵称设置为“阿斯蒂芬<div class="code">RLI</div>~喵<div class="code">LRI</div>
-            ，别人看到的昵称会是“阿斯蒂芬喵~”，若别人输入“@阿斯蒂芬喵~ 你好”则会变成“@阿斯蒂芬 你好喵~”。
+            包裹倒序的后缀部分，在别人@后，@后面的文本会跑到被包裹部分的前面去。例如：昵称设置为「阿斯蒂芬<div class="code">RLI</div>~喵<div class="code">LRI</div>
+            」，别人看到的昵称会是「阿斯蒂芬喵~」，若别人输入「@阿斯蒂芬喵~ 你好」则会变成「@阿斯蒂芬 你好喵~」。
         </div>
 
         <img src="img/word.jpg" class="shadow-img" alt="use word to check the result">
@@ -159,15 +163,41 @@
 
         <div class="btn-group" role="group">
             <button type="button" id="generate" class="btn btn-primary">生成</button>
-            <button type="button" id="copy" class="btn btn-primary">复制</button>
+            <button type="button" id="copy" class="btn btn-primary">复制1</button>
+            <button type="button" id="copy2" class="btn btn-primary">复制2</button>
         </div>
 
         <div class="sep"></div>
 
         <div class="input-group mb-3">
-            <span class="input-group-text">结果</span>
-            <input type="text" id="result" value="..." class="form-control" readonly>
+            <span class="input-group-text">结果1</span>
+            <input type="text" id="result" value="..." class="form-control red-text" readonly>
         </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">unicode</span>
+            <input type="text" id="validate" value="..." class="form-control code-font" readonly>
+        </div>
+
+        <div class="big-text text">此控制字符对汉字不稳定，混合汉字和字符可能导致意外的顺序。若上结果有误，下面是没有反转的字符。</div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">结果2</span>
+            <input type="text" id="result2" value="..." class="form-control red-text" readonly>
+        </div>
+
+        <div class="big-text text">这是一个字符串反转实用工具</div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">输入</span>
+            <input type="text" id="r-in" value="..." class="form-control">
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text">输出</span>
+            <input type="text" id="r-out" value="..." class="form-control">
+        </div>
+
 
         <div class="big-sep"></div>
 
@@ -211,13 +241,15 @@ if __name__ == '__main__':
     </div>
     <script>
         var finalResultCache = "";
+        var finalResultCache2 = "";
 
         function reverseString(s) {
             return s.split("").reverse().join("");
         }
 
-        function wrapWithUnideoce(s) {
-            return "\u2067" + reverseString(s) + "\u2066";
+        function wrapWithUnideoce(s, reverse = true) {
+            return reverse ? "\u2067" + reverseString(s) + "\u2066"
+                : "\u2067" + s + "\u2066";
         }
 
         function copy(str) {
@@ -230,12 +262,36 @@ if __name__ == '__main__':
             document.removeEventListener('copy', save);
         }
 
+        function getValidateStr(s) {
+            // basically convert s into hex string under utf-8
+            let result = "";
+            for (let i = 0; i < s.length; i++) {
+                let hex = s.charCodeAt(i).toString(16);
+                // zero padding
+                while (hex.length < 4) {
+                    hex = '0' + hex;
+                }
+                result += 'U+' + hex + ' ';
+            }
+            return result;
+        }
+
         function generateThenUpdate() {
             let prefix = $("#prefix").val();
             let suffix = $("#suffix").val();
             finalResultCache = prefix + wrapWithUnideoce(suffix);
+            finalResultCache2 = prefix + wrapWithUnideoce(suffix, false);
             console.log(finalResultCache);
+            console.log(finalResultCache2);
             $("#result").val(finalResultCache);
+            $("#result2").val(finalResultCache2);
+            $("#validate").val(getValidateStr(finalResultCache));
+        }
+
+        function reverseThenUpdate() {
+            let input = $("#r-in").val();
+            let output = reverseString(input);
+            $("#r-out").val(output);
         }
 
         $(document).ready(function () {
@@ -245,12 +301,18 @@ if __name__ == '__main__':
             $('#suffix').bind('input propertychange', function () {
                 generateThenUpdate();
             });
+            $('#r-in').bind('input propertychange', function () {
+                reverseThenUpdate();
+            });
             $("#generate").click(function () {
                 generateThenUpdate();
                 copy(finalResultCache);
             });
             $("#copy").click(function () {
                 copy(finalResultCache);
+            });
+            $("#copy2").click(function () {
+                copy(finalResultCache2);
             });
         });
     </script>
